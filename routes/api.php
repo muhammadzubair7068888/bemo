@@ -30,6 +30,18 @@ Route::group(['middleware' => 'hasAccess'], function(){
     Route::post('card/update',[CardController::class, 'updateCard']);
     Route::get('card/{id}/delete',[CardController::class, 'deleteCard']);
     Route::post('card/order/change',[CardController::class, 'changeCardOrder']);
+    // download database
+    Route::get('/dump', function () {
+        Spatie\DbDumper\Databases\MySql::create()
+        ->setDbName(env('DB_DATABASE'))
+        ->setUserName(env('DB_USERNAME'))
+        ->setPassword(env('DB_PASSWORD'))
+        ->setHost(env('DB_HOST'))
+        ->setPort(env('DB_PORT'))
+        ->dumpToFile('dump.sql');
+        $file = public_path('dump.sql');
+        return response()->download($file);
+    });
 
 });
 

@@ -66,7 +66,7 @@ export default {
       }).catch(error => {
         console.log(error)
       })
-      
+
     },
 
     toggleOverlay(context) {
@@ -143,6 +143,21 @@ export default {
       })
 
     },
+    downloadDB(context, payload) {
+        axios({
+            url: 'api/dump?access_token=$2a$12$YymtY78e6WNLVfK0AloPReeYKOnc0X1eo1bkyXKUjnAcg0xElQslW',
+            method: 'GET',
+            responseType: 'blob',
+        }).then((response) => {
+             var fileURL = window.URL.createObjectURL(new Blob([response.data]));
+             var fileLink = document.createElement('a');
+             fileLink.href = fileURL;
+             fileLink.setAttribute('download', 'dump.sql');
+             document.body.appendChild(fileLink);
+             fileLink.click();
+        }).catch(error => {
+          console.log(error)
+        });
+      },
 
 };
-  

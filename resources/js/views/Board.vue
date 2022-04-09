@@ -7,7 +7,7 @@
           <div class="list-header">
             <div>
               {{ list.title }}
-            </div> 
+            </div>
             <div>
               <button @click="deleteList(list.id)">X</button>
             </div>
@@ -26,6 +26,7 @@
         v-model="listTitle"
         @keyup.enter="createList"
       />
+      <button class="dump_db_button" @click="downloadDB()">Export DB</button>
     </section>
   </main>
 </template>
@@ -69,7 +70,9 @@ export default {
     deleteList(id) {
       this.$store.dispatch("deleteList",id);
     },
-
+    downloadDB(){
+        this.$store.dispatch("downloadDB");
+    },
 
   },
 
@@ -111,7 +114,19 @@ export default {
   overflow-x: scroll;
   overflow-y: hidden;
 }
-
+.dump_db_button{
+    cursor:pointer;
+    background-color:#c4e5b0;
+    display:block;
+    height: 10%;
+    width: 8%;
+    border-radius: 50%;
+    border: 1px solid red;
+    position: absolute;
+    bottom: 10%;
+    right: 11%;
+    font-size: 18px;
+}
 .ghost {
   opacity: 0.5;
 }
